@@ -28,10 +28,10 @@ def get_user_tag(uid):
             return ('Fail')
     json_data = json.loads(raw_json)
     return
+
 def API_Weibo(uid,page):
     basicurl = "https://api.weibo.com/2/statuses/timeline_batch.json?"
     url = basicurl + 'access_token='+ access_token +'&'+ 'uids='+str(uid)+'&'+'page='+str(page)+'&'+'count='+'100'
-    print (url)
     raw_json = ''
     try:
         raw_json = urlopen(url, timeout=20).read().decode('utf8')
@@ -77,17 +77,21 @@ def main():
     gotuid = os.listdir('./data')
 
     num = 0
+    success=0
     for eachline in fp:
         uid = eachline.split('\t')[0]
 
         num += 1
-        print (uid,num)
+        print (uid,num,success)
 
         if uid in gotuid:
             continue
 
-        fw = open('./data/'+uid,'w+')
         statuses=get_statuses(uid)
+        if statuses==[]:
+            continue
+        fw = open('./data/'+uid,'w+')
+        success+=1
         for line in statuses:
             fw.write(line.encode('utf8'))
 
