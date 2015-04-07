@@ -78,7 +78,7 @@ def main():
 
     num = 0
     for eachline in fp:
-        uid = eachline[:-1]
+        uid = eachline.split('\t')[0]
 
         num += 1
         print (uid,num)
