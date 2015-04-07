@@ -87,6 +87,7 @@ def main():
             continue
 
         fw = open('./data/'+uid,'w+')
+        statuses=get_statuses(uid)
         for line in statuses:
             fw.write(line.encode('utf8'))
 
